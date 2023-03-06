@@ -6,3 +6,13 @@
   max-width: 80%;
   margin: 24px auto;
 }
+
+.formBusca {
+  max-width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.formBusca div {
+  margin-top: 16px;
+}
