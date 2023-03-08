@@ -13,6 +13,8 @@ interface ListaLivrosProps {
 const OBTER_LIVROS = gql`
   query ObterLivros($categoriaId: Int, $titulo: String) {
     livros(categoriaId: $categoriaId, titulo: $titulo) {
+      # query ObterLivros($categoriaId: Int) {
+      #   livros(categoriaId: $categoriaId) {
       id
       slug
       titulo
@@ -33,6 +35,8 @@ const ListaLivros = ({ categoria }: ListaLivrosProps) => {
       categoriaId: categoria.id
     }
   })
+  console.table(data?.livros)
+  console.log(categoria)
 
   const buscarLivros = (evento: React.FormEvent<HTMLFormElement>) => {
     evento.preventDefault()
