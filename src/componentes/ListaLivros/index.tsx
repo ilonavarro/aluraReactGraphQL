@@ -40,7 +40,7 @@ const ListaLivros = ({ categoria }: ListaLivrosProps) => {
 
   const buscarLivros = (evento: React.FormEvent<HTMLFormElement>) => {
     evento.preventDefault()
-    textoBusca && refetch({ categoriaId: categoria.id, titulo: textoBusca })
+    textoBusca && refetch({ categoriaId: categoria.id, titulo: textoBusca }) //alterar isso
   }
 
   return (
