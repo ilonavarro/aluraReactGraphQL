@@ -7,24 +7,13 @@ import logo from './assets/logo.png'
 import usuario from './assets/usuario.svg'
 import './BarraNavegacao.css'
 import { useLimparToken, useObterToken } from '../../hooks'
-import { ICategoria } from '../../interfaces/ICategoria'
-import { gql, useQuery } from '@apollo/client'
-
-const OBTER_CATEGORIA = gql`
-  query ObterCategorias {
-    categorias {
-      id
-      nome
-      slug
-    }
-  }
-`
+import { useCategorias } from '../../graphql/categorias/hooks'
 
 const BarraNavegacao = () => {
   const [modalCadastroAberta, setModalCadastroAberta] = useState(false)
   const [modalLoginAberta, setModalLoginAberta] = useState(false)
 
-  const { data } = useQuery<{ categorias: ICategoria[] }>(OBTER_CATEGORIA)
+  const { data } = useCategorias()
 
   const navigate = useNavigate()
 
