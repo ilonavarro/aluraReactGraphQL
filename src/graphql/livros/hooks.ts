@@ -1,3 +1,4 @@
+import { livrosVar } from './state'
 import { ILivro } from './../../interfaces/ILivro'
 import { ICategoria } from './../../interfaces/ICategoria'
 import { useQuery } from '@apollo/client'
@@ -7,6 +8,11 @@ export const useLivros = (categoria: ICategoria) => {
   return useQuery<{ livros: ILivro[] }>(OBTER_LIVROS, {
     variables: {
       categoriaId: categoria.id
+    },
+    onCompleted(data) {
+      if (data.livros) {
+        livrosVar(data.livros)
+      }
     }
   })
 }
