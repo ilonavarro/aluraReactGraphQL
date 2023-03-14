@@ -9,13 +9,17 @@ import Titulo from '../../componentes/Titulo'
 
 import './Home.css'
 import { obterLivrosDestaque } from '../../http'
+import { useDestaques } from '../../graphql/destaques/hooks'
 
 const Home = () => {
   const [busca, setBusca] = useState('')
 
-  const { data: lancamentos } = useQuery(['destaques'], () =>
-    obterLivrosDestaque('lancamentos')
-  )
+  // const { data: lancamentos } = useQuery(['destaques'], () =>
+  //   obterLivrosDestaque('lancamentos')
+  // )
+
+  const { data } = useDestaques()
+
   const { data: maisVendidos } = useQuery(['maisVendidos'], () =>
     obterLivrosDestaque('mais-vendidos')
   )
@@ -37,7 +41,7 @@ const Home = () => {
         </form>
       </Banner>
       <Titulo texto='ÚLTIMOS LANÇAMENTOS' />
-      <LivrosDestaque livros={lancamentos ?? []} />
+      <LivrosDestaque livros={data?.destaques?.lancamentos ?? []} />
       <Titulo texto='MAIS VENDIDOS' />
       <LivrosDestaque livros={maisVendidos ?? []} />
       <TagsCategorias />
