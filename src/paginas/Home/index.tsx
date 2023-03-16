@@ -41,7 +41,7 @@ const Home = () => {
         </form>
       </Banner>
       <Titulo texto='ÚLTIMOS LANÇAMENTOS' />
-      <LivrosDestaque livros={data?.destaques?.lancamentos ?? []} />
+      {/* <LivrosDestaque livros={data?.destaques?.lancamentos ?? []} /> */}
       <Titulo texto='MAIS VENDIDOS' />
       <LivrosDestaque livros={maisVendidos ?? []} />
       <TagsCategorias />
