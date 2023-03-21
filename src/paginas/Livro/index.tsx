@@ -7,6 +7,7 @@ import BlocoSobre from '../../componentes/BlocoSobre'
 import Loader from '../../componentes/Loader'
 import SobreAutor from '../../componentes/SobreAutor'
 import TituloPrincipal from '../../componentes/TituloPrincipal'
+import { useLivro } from '../../graphql/livros/hooks'
 import { obterLivro } from '../../http'
 import { ILivro } from '../../interfaces/ILivro'
 import { formatador } from '../../utils/formatador-moeda'
@@ -19,48 +20,59 @@ const Livro = () => {
   const [opcao, setOpcao] = useState<AbGrupoOpcao>()
   const [quantidadeCompraLivros, setQuantidadeCompraLivros] = useState<number>(1)
 
-  const {
-    data: livro,
-    isLoading,
-    error
-  } = useQuery<ILivro | null, AxiosError>(['livro', params.slug], () =>
-    obterLivro(params.slug || '')
-  )
+  const { data } = useLivro(params.slug || '')
 
-  if (error) {
-    console.log('Alguma coisa deu errada')
-    console.log(error.message)
-    return <h1>Ops! Algum erro inesperado aconteceu</h1>
-  }
-
-  if (livro === null) {
-    return <h1>Livro não encontrado!</h1>
-  }
-
-  if (isLoading || !livro) {
-    return <Loader />
-  }
-
-  const livroOpcoesCompra = livro.opcoesCompra.map(opcao => ({
+  const livroOpcoesCompra = data?.livro.opcoesCompra.map(opcao => ({
     id: opcao.id,
     corpo: formatador.format(opcao.preco),
     titulo: opcao.titulo,
     rodape: opcao.formatos ? opcao.formatos.join(',') : ''
   }))
 
-  const opcoes: AbGrupoOpcao[] = livro.opcoesCompra ? livroOpcoesCompra : []
+  const opcoes: AbGrupoOpcao[] = data?.livro.opcoesCompra ? livroOpcoesCompra : []
+
+  // const {
+  //   data: livro,
+  //   isLoading,
+  //   error
+  // } = useQuery<ILivro | null, AxiosError>(['livro', params.slug], () =>
+  //   obterLivro(params.slug || '')
+  // )
+
+  // if (error) {
+  //   console.log('Alguma coisa deu errada')
+  //   console.log(error.message)
+  //   return <h1>Ops! Algum erro inesperado aconteceu</h1>
+  // }
+
+  if (data?.livro === null) {
+    return <h1>Livro não encontrado!</h1>
+  }
+
+  // if (isLoading || !livro) {
+  //   return <Loader />
+  // }
+
+  // const livroOpcoesCompra = livro.opcoesCompra.map(opcao => ({
+  //   id: opcao.id,
+  //   corpo: formatador.format(opcao.preco),
+  //   titulo: opcao.titulo,
+  //   rodape: opcao.formatos ? opcao.formatos.join(',') : ''
+  // }))
+
+  // const opcoes: AbGrupoOpcao[] = livro.opcoesCompra ? livroOpcoesCompra : []
 
   return (
     <section className='livro-detalhe'>
-      <TituloPrincipal texto={`Detalhes do Livro ${livro.titulo}`} />
+      <TituloPrincipal texto={`Detalhes do Livro ${data?.livro.titulo}`} />
       <div className=''>
         <div className='container'>
           <figure>
-            <img src={livro.imagemCapa} alt={livro.descricao} />
+            <img src={data?.livro.imagemCapa} alt={data?.livro.descricao} />
           </figure>
           <div className='detalhes'>
-            <h2>{livro.titulo}</h2>
-            <p>{livro.descricao}</p>
+            <h2>{data?.livro.titulo}</h2>
+            <p>{data?.livro.descricao}</p>
             <h3>Selecione o formato do seu livro:</h3>
             <div className='opcoes'>
               <AbGrupoOpcoes opcoes={opcoes} onChange={setOpcao} valorPadrao={opcao} />
@@ -86,8 +98,8 @@ const Livro = () => {
           </div>
         </div>
         <div>
-          <SobreAutor autorId={livro.autor} />
-          <BlocoSobre titulo='Sobre o Livro' corpo={livro.sobre} />
+          <SobreAutor autorId={data?.livro.autor || 9999} />
+          <BlocoSobre titulo='Sobre o Livro' corpo={data?.livro.sobre} />
         </div>
       </div>
     </section>
