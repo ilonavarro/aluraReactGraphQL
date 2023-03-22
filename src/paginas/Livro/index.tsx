@@ -1,15 +1,15 @@
-import { useQuery } from '@tanstack/react-query'
-import { AxiosError } from 'axios'
+// import { useQuery } from '@tanstack/react-query'
+// import { AxiosError } from 'axios'
+// import Loader from '../../componentes/Loader'
+// import { obterLivro } from '../../http'
+// import { ILivro } from '../../interfaces/ILivro'
 import { AbBotao, AbGrupoOpcao, AbGrupoOpcoes, AbInputQuantidade } from 'ds-alurabooks'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import BlocoSobre from '../../componentes/BlocoSobre'
-import Loader from '../../componentes/Loader'
 import SobreAutor from '../../componentes/SobreAutor'
 import TituloPrincipal from '../../componentes/TituloPrincipal'
 import { useLivro } from '../../graphql/livros/hooks'
-import { obterLivro } from '../../http'
-import { ILivro } from '../../interfaces/ILivro'
 import { formatador } from '../../utils/formatador-moeda'
 
 import './Livro.css'
@@ -29,7 +29,8 @@ const Livro = () => {
     rodape: opcao.formatos ? opcao.formatos.join(',') : ''
   }))
 
-  const opcoes: AbGrupoOpcao[] = data?.livro.opcoesCompra ? livroOpcoesCompra : []
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const opcoes: AbGrupoOpcao[] = data?.livro.opcoesCompra ? livroOpcoesCompra! : []
 
   // const {
   //   data: livro,
