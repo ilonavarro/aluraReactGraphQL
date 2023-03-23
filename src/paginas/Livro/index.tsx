@@ -99,8 +99,8 @@ const Livro = () => {
           </div>
         </div>
         <div>
-          <SobreAutor autorId={data?.livro.autor || 9999} />
-          <BlocoSobre titulo='Sobre o Livro' corpo={data?.livro.sobre} />
+          {data && <SobreAutor autorId={data?.livro.autor} />}
+          {data && <BlocoSobre titulo='Sobre o Livro' corpo={data?.livro.sobre} />}
         </div>
       </div>
     </section>
