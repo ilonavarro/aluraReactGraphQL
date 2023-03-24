@@ -11,7 +11,6 @@ import SobreAutor from '../../componentes/SobreAutor'
 import TituloPrincipal from '../../componentes/TituloPrincipal'
 import { useLivro } from '../../graphql/livros/hooks'
 import { formatador } from '../../utils/formatador-moeda'
-
 import './Livro.css'
 
 const Livro = () => {
