@@ -38,7 +38,6 @@ const Livro = () => {
   // } = useQuery<ILivro | null, AxiosError>(['livro', params.slug], () =>
   //   obterLivro(params.slug || '')
   // )
-
   // if (error) {
   //   console.log('Alguma coisa deu errada')
   //   console.log(error.message)
