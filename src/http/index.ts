@@ -54,6 +54,7 @@ export const obterProdutosDaCategoria = async (categoria: ICategoria) => {
 export const obterAutor = async (autorId: number) => {
   try {
     const resposta = await http.get<IAutor>(`autores/${autorId}`)
+    console.log(`autores/${autorId}`)
     return resposta.data
   } catch (error) {
     console.error('Não foi possivel obter o autor!')

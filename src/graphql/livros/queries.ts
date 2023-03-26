@@ -25,7 +25,6 @@ export const OBTER_LIVRO = gql`
       sobre
       autor {
         nome
-        sobre
       }
       opcoesCompra {
         id
