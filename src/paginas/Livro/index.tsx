@@ -1,8 +1,10 @@
-// import { useQuery } from '@tanstack/react-query'
-// import { AxiosError } from 'axios'
-// import { obterLivro } from '../../http'
-// import { ILivro } from '../../interfaces/ILivro'
-import { AbBotao, AbGrupoOpcao, AbGrupoOpcoes, AbInputQuantidade } from 'ds-alurabooks'
+import {
+  AbBotao,
+  AbGrupoOpcao,
+  AbGrupoOpcoes,
+  AbInputQuantidade,
+  AbTag
+} from 'ds-alurabooks'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import BlocoSobre from '../../componentes/BlocoSobre'
@@ -93,8 +95,13 @@ const Livro = () => {
           </div>
         </div>
         <div>
-          {/* {data && <SobreAutor autorId={data?.livro.autor} />} */}
+          {data && <BlocoSobre titulo='Sobre o Autor' corpo={data?.livro.autor.sobre} />}
           {data && <BlocoSobre titulo='Sobre o Livro' corpo={data?.livro.sobre} />}
+        </div>
+        <div className='tags'>
+          {data?.livro.tags?.map(tag => (
+            <AbTag texto={tag.nome} key={tag.nome} contexto='secundario' />
+          ))}
         </div>
       </div>
     </section>
